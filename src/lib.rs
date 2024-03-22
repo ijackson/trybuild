@@ -207,6 +207,21 @@
 //! important for a test suite to catch. If the compiler changes something that
 //! makes error messages that we care about substantially worse, it is also
 //! important to catch and report as a compiler issue.
+//!
+//! # Tips for use in CI in complex workspaces
+//!
+//! When using trybuild, via `cargo test`, in CI,
+//! in a workspace with complex dependencies and/or use of cargo features,
+//! `cargo test` may not always download everything needed
+//! for the trybuild tests,
+//! because it can't see that they're needed.
+//!
+//! This manifests as an error report:
+//! > attempting to make an HTTP request, but --offline was specified
+//!
+//! This can be resolved by running plain `cargo fetch`
+//! (or `cargo fetch --locked`)
+//! before `cargo test`, in your CI scripts.
 
 #![doc(html_root_url = "https://docs.rs/trybuild/1.0.90")]
 #![allow(
